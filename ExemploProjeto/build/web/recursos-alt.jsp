@@ -6,8 +6,9 @@
 
 <%@page import="conexao.ConexaoSQLite"%>
 <%
+    
     String vcod = request.getParameter("cxaCod");
-    String vcod_recursos = request.getParameter("cod_recursos");
+    String vhostname = request.getParameter("cxaCod_recursos");
     String vsoperacional = request.getParameter("cxaSoperacional");
     String vmemoria = request.getParameter("cxaMemoria");
     String vprocessador = request.getParameter("cxaProcessador");
@@ -17,13 +18,13 @@
     ConexaoSQLite conexao = new ConexaoSQLite();
     conexao.queryUpdate("UPDATE Recursos "
             + "SET "
-           //+ "cod_recursos='"+vcod_recursos+"',"
+            //+ "cod_recursos='"+vcod_recursos+"'," Não perde o hostname mesmo como null
             + "soperacional='"+vsoperacional+"',"
             + "memoria='"+vmemoria+"',"
             + "processador='"+vprocessador+"',"
             + "volumetria='"+vvolumetria+"',"
             + "banco='"+vbanco+"'"
-            + " WHERE cod='"+vcod+"'");
+            + " WHERE cod_rec='"+vcod+"'");
     conexao.close();
     response.sendRedirect("recursos.jsp");
 %>

@@ -40,9 +40,10 @@
                             <!-- MIOLO do PAINEL -->
                             <%
                             
-                              String vcod = request.getParameter("cod");
+                              String vcod = request.getParameter("cod_rec");
                               String sAction = "recursos-ins.jsp";
                               String vcod_recursos = request.getParameter("cod_recursos");
+                              String vhostname = request.getParameter("hostname");
                               String vsoperacional = "";
                               String vmemoria = "";
                               String vprocessador = "";
@@ -51,9 +52,13 @@
                               if(vcod != null) {
                                   sAction = "recursos-alt.jsp";
                                   ConexaoSQLite conexao = new ConexaoSQLite();
-                                  conexao.query("SELECT * FROM Recursos WHERE cod='"+vcod+"'");
+                                  conexao.query("SELECT Servidores.hostname,soperacional,memoria,processador,volumetria,banco "
+                                          + "FROM Recursos,Servidores "
+                                          + "WHERE cod_rec='"+vcod+"'");
+                                  
                                   if(conexao.next()) {
                                       //vcod_recursos = conexao.getString("cod_recursos");
+                                      vhostname = conexao.getString("hostname");
                                       vsoperacional = conexao.getString("soperacional");
                                       vmemoria = conexao.getString("memoria");
                                       vprocessador = conexao.getString("processador");
@@ -64,14 +69,15 @@
                               }
                             %>
                             <form action="<%= sAction %>" method="GET">
+                                
                                 <div class="form-group">
-                                    <label>Cod_Rec</label>
-                                    <select class="form-control"><option><%= vcod_recursos %></option></select>
+                                    <label>Hostname</label>
+                                    <input type="text" value="<%= vcod_recursos %>" class="form-control" name="cxaCod_recursos" placeholder="Digite o cod do servidor">
                                 </div>
                                 
                                 <div class="form-group">
                                     <label>S.O</label>
-                                    <input type="text" value="<%= vsoperacional %>" class="form-control" name="cxaSoperacional" placeholder="Digite o Ip do host">
+                                    <input type="text" value="<%= vsoperacional %>" class="form-control" name="cxaSoperacional" placeholder="Digite o Sistema Operacional">
                                 </div>
                                 
                                 <div class="form-group">

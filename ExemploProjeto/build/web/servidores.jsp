@@ -28,11 +28,17 @@
                     <%@ include file="menu.jsp" %>
                 </div>
                 <div class="col-md-8">
-                    <h1>Lista de Servidores</h1>
+                    <h1><small>Lista de Servidores</small></h1>
+                    
                     <div class="panel panel-primary">
-                        <div class="panel-heading">Lista de servidores</div>
+                        
+                        <div class="panel-heading">
+                            Lista de servidores 
+                            <a href="servidores-form.jsp" class="btn btn-primary btn-sm alert-info pull-right">Novo Servidor</a>
+                        </div>
                         <div class="panel-body">
-                            <table class="table table-hover table-bordered">
+                           
+                            <table class="table table-striped table-bordered table-condensed table-hover text-uppercase">
                                 <thead>
                                     <tr>
                                         <td>COD</td>
@@ -69,19 +75,19 @@
                                             out.println("</a>");
                                             out.println("</td>");
                                             //Coluna com Botão EXCLUIR
-                                            out.println("<td>");
+                                            /*out.println("<td>");
                                             out.println("<a href=\"servidores-rem.jsp?cod=" + vcod + "\" class=\"btn btn-danger btn-xs\">");
                                             out.println("<span class=\"glyphicon glyphicon-edit\"></span>");
                                             out.println("excluir");
                                             out.println("</a>");
-                                            out.println("</td>");
+                                            out.println("</td>");*/
                                         }
                                         conexao.close();
                                     %>
                                 </tbody>
                             </table>
                             <hr>
-                            <a href="servidores-form.jsp" class="btn btn-primary">Novo Servidor</a>
+                            
                         </div>
                     </div>                    
                 </div>

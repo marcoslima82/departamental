@@ -6,7 +6,7 @@
 
 <%@page import="conexao.ConexaoSQLite"%>
 <%
-
+    String vcod_recursos = request.getParameter("cxaCod_recursos");
     String vsoperacional = request.getParameter("cxaSoperacional");
     String vmemoria = request.getParameter("cxaMemoria");
     String vprocessador = request.getParameter("cxaProcessador");
@@ -14,8 +14,9 @@
     String vbanco = request.getParameter ("cxaBanco");
     
     ConexaoSQLite conexao = new ConexaoSQLite();
-    conexao.queryUpdate("INSERT INTO Recursos "
-            + "(soperacional,memoria,processador,volumetria,banco) values ("
+    conexao.queryUpdate("INSERT INTO Recursos"
+            + "(soperacional,memoria,processador,volumetria,banco,cod_recursos) values ("
+            + "'"+vcod_recursos+"',"
             + "'"+vsoperacional+"',"
             + "'"+vmemoria+"',"
             + "'"+vprocessador+"',"

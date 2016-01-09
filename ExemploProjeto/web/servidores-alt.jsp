@@ -15,8 +15,8 @@
     ConexaoSQLite conexao = new ConexaoSQLite();
     conexao.queryUpdate("UPDATE Servidores "
             + "SET "
-            + "hostname='"+vhostname+"',"
-            + "ip='"+vip+"',"
+            //+ "hostname='"+vhostname+"',"
+            //+ "ip='"+vip+"',"
             + "monitoracao='"+vmonitoracao+"',"
             + "backup='"+vbackup+"'"
             + " WHERE cod='"+vcod+"'");

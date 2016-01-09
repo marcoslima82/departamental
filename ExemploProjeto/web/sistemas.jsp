@@ -28,17 +28,19 @@
                     <%@ include file="menu.jsp" %>
                 </div>
                 <div class="col-md-8">
-                    <h1>Lista de Sistemas</h1>
+                    <h1><small>Lista de Sistemas</small></h1>
                     <div class="panel panel-primary">
-                        <div class="panel-heading">Lista de sistemas</div>
+                        <div class="panel-heading">
+                            Lista de sistemas
+                        <a href="sistemas-form.jsp" class="btn btn-primary btn-sm alert-info pull-right">Novo Sistema</a>
+                        </div>
                         <div class="panel-body">
-                            <table class="table table-hover table-bordered">
+                            <table class="table table-striped table-bordered table-condensed table-hover text-uppercase">
                                 <thead>
                                     <tr>
                                         <td>COD</td>
                                         <td>SISTEMA</td>
                                         <td>SERVIDOR</td>
-                                        <td>IP</td>
                                         <td>AREA RECEPTORA</td>
                                     </tr>
                                 </thead>
@@ -46,42 +48,44 @@
                                     <%
 
                                         ConexaoSQLite conexao = new ConexaoSQLite();
-                                        conexao.query("SELECT * FROM Sistemas");
+                                        conexao.query("SELECT cod_sis,sistema,Servidores.hostname,area "
+                                                + "FROM Sistemas,Servidores "
+                                                + "WHERE Sistemas.cod_sistema = Servidores.cod ");
 
                                         while (conexao.next()) {
-                                            int vcod = conexao.getInt("cod");
+                                            int vcod = conexao.getInt("cod_sis");
                                             String vsistema = conexao.getString("sistema");
-                                            String vhost = conexao.getString("host");
-                                            String vip = conexao.getString("ip");
+                                            String vhost = conexao.getString("hostname");
                                             String varea = conexao.getString("area");
 
                                             out.println("<tr>");
                                             out.println("<td>" + vcod + "</td>");
                                             out.println("<td>" + vsistema + "</td>");
                                             out.println("<td>" + vhost + "</td>");
-                                            out.println("<td>" + vip + "</td>");
+                                            //out.println("<td>" + vip + "</td>");
                                             out.println("<td>" + varea + "</td>");
                                             //Coluna com Botão ALTERAR
                                             out.println("<td>");
-                                            out.println("<a href=\"sistemas-form.jsp?cod=" + vcod + "\" class=\"btn btn-primary btn-xs\">");
+                                            out.println("<a href=\"sistemas-form.jsp?cod_sis=" + vcod + "\" class=\"btn btn-primary btn-xs\">");
                                             out.println("<span class=\"glyphicon glyphicon-edit\"></span>");
                                             out.println("alterar");
                                             out.println("</a>");
                                             out.println("</td>");
-                                            //Coluna com Botão EXCLUIR
+                                            /*Coluna com Botão EXCLUIR
                                             out.println("<td>");
                                             out.println("<a href=\"sistemas-rem.jsp?cod=" + vcod + "\" class=\"btn btn-danger btn-xs\">");
                                             out.println("<span class=\"glyphicon glyphicon-edit\"></span>");
                                             out.println("excluir");
                                             out.println("</a>");
                                             out.println("</td>");
+                                                    */
                                         }
                                         conexao.close();
                                     %>
                                 </tbody>
                             </table>
                             <hr>
-                            <a href="sistemas-form.jsp" class="btn btn-primary">Novo Sistema</a>
+                            
                         </div>
                     </div>                    
                 </div>

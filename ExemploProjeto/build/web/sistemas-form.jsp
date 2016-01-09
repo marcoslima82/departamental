@@ -7,6 +7,7 @@
 <%@page import="conexao.ConexaoSQLite"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+    
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,7 +17,7 @@
         <script src="js/bootstrap.min.js"></script>
     </head>
     <body>
-
+<c:forEach var="lista" items="${lista}"><c:out value="${lista}"/><br></c:forEach>
         <div class="container">
 
             <!-- TOPO --> 
@@ -28,55 +29,69 @@
                     <%@ include file="menu.jsp" %>                
                 </div>
                 <div class="col-md-8">
-                    <h1>
-                        Sistemas
+                    <h1><small>
+                            Sistemas</small>
                         <a href="sistemas.jsp" class="btn btn-primary pull-right">voltar</a>
                     </h1>
                     <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            Cadastro de Sistemas
+                        <div class="panel-heading"><small>
+                                Cadastro de Sistemas</small>
                         </div>
                         <div class="panel-body">
                             <!-- MIOLO do PAINEL -->
-                            <%
-                            
-                              String vcod = request.getParameter("cod");
-                              String sAction = "sistemas-ins.jsp";
-                              String vsistema = "";
-                              String vhost = "";
-                              String vip = "";
-                              String varea = "";
-                              if(vcod != null) {
-                                  sAction = "sistemas-alt.jsp";
-                                  ConexaoSQLite conexao = new ConexaoSQLite();
-                                  conexao.query("SELECT * FROM Sistemas WHERE cod='"+vcod+"'");
-                                  if(conexao.next()) {
-                                      vsistema = conexao.getString("sistema");
-                                      vhost = conexao.getString("host");
-                                      vip = conexao.getString("ip");
-                                      varea = conexao.getString("area");
-                                  }
-                                  conexao.close();
-                              }
+                            <%  
+                                
+                                String vcod = request.getParameter("cod_sis");
+                                String vhost = "vazio";
+                                String sAction = "sistemas-ins.jsp";
+                                String vsistema = "";
+                                String varea = "";
+                                String vcod_servidor = "";
+                                
+                                //testes de variaveis
+                                System.out.println("vhost > "+vhost+ " cod_sis > "+vcod );
+                               
+                                if (vcod != null) 
+                                {
+                                    sAction = "sistemas-alt.jsp";
+                                    ConexaoSQLite conexao = new ConexaoSQLite();
+                                    conexao.query("SELECT cod_sis,sistema,Servidores.hostname,Servidores.ip,area,cod_sistema,Servidores.cod "
+                                            + "FROM Sistemas,Servidores "
+                                            + " WHERE cod_sis='" + vcod + "'");
+
+                                    if (conexao.next())
+                                    {   
+                                        vcod_servidor = conexao.getString("hostname");
+                                        vsistema = conexao.getString("sistema");
+                                        //vcod = conexao.getString("cod_sis");
+                                        vhost = conexao.getString("hostname");
+                                        varea = conexao.getString("area");
+                                        
+                                    }
+                                        conexao.close();
+                                }
                             %>
-                            <form action="<%= sAction %>" method="GET">
+                            <form action="<%= sAction%>" method="GET">
+
+                                <div class="form-group">
+                                    <label>COD_Servidor</label>
+                                    <select class="form-control" id="cxaServidor"><option><%= vcod_servidor%></option></select>
+                                </div>
+
                                 <div class="form-group">
                                     <label>Sistema</label>
-                                    <input type="text" value="<%= vsistema %>" class="form-control" name="cxaSistema" placeholder="Digite nome do sistema">
+                                    <input type="text" value="<%= vsistema%>" class="form-control" name="cxaSistema" placeholder="Digite nome do sistema">
                                 </div>
                                 <div class="form-group">
-                                    <label>Host</label>
-                                    <input type="text" value="<%= vhost %>" class="form-control" name="cxaHost" placeholder="Digite o Hostname">
-                                </div>
+                                    <label>Servidor</label>
+                                    <input class="form-control" name="cxaServidor" value="<%= vhost %>" disabled="">
+                                   </div>
+
                                 <div class="form-group">
-                                    <label>IP</label>
-                                    <input type="text" value="<%= vip %>" class="form-control" name="cxaIp" placeholder="Digite endereço IP">
+                                    <label>Area Receptora</label>
+                                    <input type="text" value="<%= varea%>" class="form-control" name="cxaArea" placeholder="Digite Area Receptora">
                                 </div>
-                                <div class="form-group">
-                                    <label>Area</label>
-                                    <input type="text" value="<%= varea %>" class="form-control" name="cxaArea" placeholder="Digite Area Receptora">
-                                </div>
-                                <input type="hidden" name="cxaCod" value="<%= vcod %>" class="form-control">
+                                <input type="hidden" name="cxaCod" value="<%= vcod%>" class="form-control">
                                 <button type="submit" class="btn btn-primary">Cadastrar</button>
                             </form>                            
                         </div>

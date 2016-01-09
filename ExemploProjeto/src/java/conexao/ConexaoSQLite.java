@@ -12,7 +12,7 @@ public class ConexaoSQLite {
     
     public ConexaoSQLite()
     {
-        String filename= "F:/ExemploProjeto/BD_DEP_2015.s3db";
+        String filename= "C:/Users/Mark/Documents/GitHub/departamental/ExemploProjeto/BD_DEP_2015.s3db";
         try {
           stmt = null;
           rs = null;

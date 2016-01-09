@@ -8,17 +8,17 @@
 <%
 
     String vsistema = request.getParameter("cxaSistema");
-    String vhost = request.getParameter("cxaHost");
-    String vip = request.getParameter("cxaIp");
+    //String vhost = request.getParameter("cxaHost");
+    //String vcod_servidor = request.getParameter("cxaServidor");
     String varea = request.getParameter("cxaArea");
     
     ConexaoSQLite conexao = new ConexaoSQLite();
     conexao.queryUpdate("INSERT INTO Sistemas "
-            + "(sistema,host,ip,area) values ("
+            + "(sistema,area) values ("
             + "'"+vsistema+"',"
-            + "'"+vhost+"',"
-            + "'"+vip+"',"
             + "'"+varea+"'"
+            //+ "'"+vip+"',"
+            //+ "'"+vcod_servidor+"'"
             + ")");
     conexao.close();
     response.sendRedirect("sistemas.jsp");

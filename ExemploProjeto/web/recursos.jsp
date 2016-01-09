@@ -32,11 +32,11 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">Recurso dos servidores</div>
                         <div class="panel-body">
-                            <table class="table table-hover table-bordered">
+                            <table class="table table-striped table-bordered table-condensed table-hover">
                                 <thead>
                                     <tr>
                                         <td>COD</td>
-                                        <td>COD_HOST</td>
+                                        <td>HOSTNAME</td>
                                         <td>S.O</td>
                                         <td>MEMORIA</td>
                                         <td>PROCESSADOR</td>
@@ -48,20 +48,23 @@
                                     <%
 
                                         ConexaoSQLite conexao = new ConexaoSQLite();
-                                        conexao.query("SELECT * FROM Recursos");
-
+                                        //conexao.query("SELECT * FROM Recursos");
+                                        conexao.query("SELECT cod_rec,Servidores.hostname,soperacional,memoria,processador,volumetria,banco "
+                                                + "from Recursos,Servidores "
+                                                + "where Recursos.cod_recursos like Servidores.cod");
                                         while (conexao.next()) {
-                                            int vcod = conexao.getInt("cod");
-                                            int vcod_recursos = conexao.getInt("cod_recursos");
+                                            int vcod = conexao.getInt("cod_rec");
+                                            String vhostname = conexao.getString("hostname");
                                             String vsoperacional = conexao.getString("soperacional");
                                             String vmemoria = conexao.getString("memoria");
                                             String vprocessador = conexao.getString("processador");
                                             String vvolumetria = conexao.getString("volumetria");
                                             String vbanco = conexao.getString("banco");
+                                            //String vcod_recursos = conexao.getString("cod_recursos");
                                             
                                             out.println("<tr>");
                                             out.println("<td>" + vcod + "</td>");
-                                            out.println("<td>" + vcod_recursos + "</td>");
+                                            out.println("<td>" + vhostname + "</td>");
                                             out.println("<td>" + vsoperacional + "</td>");
                                             out.println("<td>" + vmemoria + "</td>");
                                             out.println("<td>" + vprocessador + "</td>");
@@ -70,19 +73,19 @@
                                            
                                             //Coluna com Botão ALTERAR
                                             out.println("<td>");
-                                            out.println("<a href=\"recursos-form.jsp?cod=" + vcod + "\" class=\"btn btn-primary btn-xs\">");
+                                            out.println("<a href=\"recursos-form.jsp?cod_rec=" + vcod + "\" class=\"btn btn-primary btn-xs\">");
                                             out.println("<span class=\"glyphicon glyphicon-edit\"></span>");
                                             out.println("alterar");
                                             out.println("</a>");
                                             out.println("</td>");
-                                            //Coluna com Botão EXCLUIR
+                                            /*Coluna com Botão EXCLUIR
                                             out.println("<td>");
-                                            out.println("<a href=\"recursos-rem.jsp?cod=" + vcod + "\" class=\"btn btn-danger btn-xs\">");
+                                            out.println("<a href=\"recursos-rem.jsp?cod_rec=" + vcod + "\" class=\"btn btn-danger btn-xs\">");
                                             out.println("<span class=\"glyphicon glyphicon-edit\"></span>");
                                             out.println("excluir");
                                             out.println("</a>");
                                             out.println("</td>");
-                                            
+                                            */
                                         }
                                         conexao.close();
                                     %>

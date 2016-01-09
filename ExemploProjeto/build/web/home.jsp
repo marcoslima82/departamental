@@ -22,10 +22,10 @@
                     <%@ include file="menu.jsp" %>
                 </div>
                 <div class="col-md-8">
-                    <h1>Bem-vindo ao Sistema</h1>
+                    <h1><small>Bem-vindo ao Sistema</small></h1>
                     <hr>
                     <div class="thumbnail">
-                        <img src="http://lorempixel.com/400/200/abstract">
+                        <img src="http://lorempixel.com/400/400/city" class="img-rounded">
                     </div>                        
                 </div>
                 <div class="col-md-2"> </div>

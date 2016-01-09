@@ -31,7 +31,7 @@
                 <div class="col-md-8">
                     <h1>
                         Servidores
-                        <a href="sistemas.jsp" class="btn btn-primary pull-right">voltar</a>
+                        <a href="servidoress.jsp" class="btn btn-primary pull-right">voltar</a>
                     </h1>
                     <div class="panel panel-primary">
                         <div class="panel-heading">
